@@ -1,0 +1,9 @@
+{"estimated_flops": 386811297792, "event": "train_step", "gpu_max_memory_allocated_bytes": 1547978240, "gpu_memory_allocated_bytes": 913714176, "gpu_memory_reserved_bytes": 1790967808, "learning_rate": 1.2e-06, "step": 1, "time": "2026-07-05T14:45:17.097732+00:00", "tokens_per_second": 3623.7981963556717, "tokens_seen": 2048, "train_loss": 10.931243896484375, "wall_clock_seconds": 0.5651531219482422}
+{"avg_update_rms": 0.11141903667400281, "event": "muon_update_rms", "max_update_rms": 0.1840544492006302, "min_update_rms": 0.04369859769940376, "num_muon_matrices": 60, "step": 1, "time": "2026-07-05T14:45:17.098267+00:00", "tokens_seen": 2048}
+{"estimated_flops": 386811297792, "event": "validation", "step": 1, "time": "2026-07-05T14:45:17.163747+00:00", "tokens_seen": 2048, "val_loss": 10.92544174194336, "validation_tokens": 16384}
+{"bytes": 563951115, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 1, "time": "2026-07-05T14:45:18.256389+00:00", "tokens_seen": 2048}
+{"estimated_flops": 773622595584, "event": "validation", "step": 2, "time": "2026-07-05T14:45:18.962374+00:00", "tokens_seen": 4096, "val_loss": 10.940719604492188, "validation_tokens": 16384}
+{"bytes": 563951115, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 2, "time": "2026-07-05T14:45:19.946765+00:00", "tokens_seen": 4096}
+{"estimated_flops": 1160433893376, "event": "validation", "step": 3, "time": "2026-07-05T14:45:20.812919+00:00", "tokens_seen": 6144, "val_loss": 10.932987213134766, "validation_tokens": 16384}
+{"bytes": 563951115, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 3, "time": "2026-07-05T14:45:21.812050+00:00", "tokens_seen": 6144}
+{"checkpoint": "checkpoints/latest.pt", "event": "completed", "reason": "completed", "step": 3, "time": "2026-07-05T14:45:23.181769+00:00", "tokens_seen": 6144}

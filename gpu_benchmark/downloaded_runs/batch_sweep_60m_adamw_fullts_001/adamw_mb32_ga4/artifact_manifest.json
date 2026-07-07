@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "bytes": 807,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 689812555,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1610,
+      "path": "config.json"
+    },
+    {
+      "bytes": 3835,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 65165,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 60776,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 48286,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 300,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 303,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/home/anubrat/pretrain_runs/batch_sweep_60m_adamw_fullts_001/adamw_mb32_ga4",
+  "updated_at": "2026-07-05T15:51:07.958662+00:00"
+}

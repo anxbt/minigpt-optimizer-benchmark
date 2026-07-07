@@ -1,0 +1,54 @@
+{
+  "files": [
+    {
+      "bytes": 1032,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 563951243,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1769,
+      "path": "config.json"
+    },
+    {
+      "bytes": 20833,
+      "path": "logs/stdout.log"
+    },
+    {
+      "bytes": 278931,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 11149,
+      "path": "muon_param_groups.json"
+    },
+    {
+      "bytes": 49290,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 44669,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 59371,
+      "path": "plots/muon_update_rms.png"
+    },
+    {
+      "bytes": 52280,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 306,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 25005,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/home/anubrat/pretrain_runs/finewebedu_60m_muon_sample10bt_seed2024_4000s_001",
+  "updated_at": "2026-07-06T03:45:40.425002+00:00"
+}

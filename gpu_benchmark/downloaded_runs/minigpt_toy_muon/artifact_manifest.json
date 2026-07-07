@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 902,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 80492645,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1428,
+      "path": "config.json"
+    },
+    {
+      "bytes": 2127,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 2551,
+      "path": "muon_param_groups.json"
+    },
+    {
+      "bytes": 71717,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 63324,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 42452,
+      "path": "plots/muon_update_rms.png"
+    },
+    {
+      "bytes": 28123,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 287,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 886,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/tmp/minigpt_toy_muon",
+  "updated_at": "2026-07-05T14:14:26.606390+00:00"
+}

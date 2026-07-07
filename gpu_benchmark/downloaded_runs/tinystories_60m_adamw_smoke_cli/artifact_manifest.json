@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "bytes": 769,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 689812555,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1599,
+      "path": "config.json"
+    },
+    {
+      "bytes": 1601,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 65497,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 56379,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 28232,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 296,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 1600,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/tmp/tinystories_60m_adamw_smoke_cli",
+  "updated_at": "2026-07-05T14:45:02.270784+00:00"
+}

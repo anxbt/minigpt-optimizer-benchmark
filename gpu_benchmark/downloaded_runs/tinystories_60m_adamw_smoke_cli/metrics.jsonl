@@ -1,0 +1,8 @@
+{"estimated_flops": 386811297792, "event": "train_step", "gpu_max_memory_allocated_bytes": 1422149120, "gpu_memory_allocated_bytes": 1039543296, "gpu_memory_reserved_bytes": 1688207360, "learning_rate": 1.2e-06, "step": 1, "time": "2026-07-05T14:44:55.766105+00:00", "tokens_per_second": 5236.012208108384, "tokens_seen": 2048, "train_loss": 10.8997802734375, "wall_clock_seconds": 0.39113783836364746}
+{"estimated_flops": 386811297792, "event": "validation", "step": 1, "time": "2026-07-05T14:44:55.834786+00:00", "tokens_seen": 2048, "val_loss": 10.89493179321289, "validation_tokens": 16384}
+{"bytes": 689812555, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 1, "time": "2026-07-05T14:44:57.022996+00:00", "tokens_seen": 2048}
+{"estimated_flops": 773622595584, "event": "validation", "step": 2, "time": "2026-07-05T14:44:57.654867+00:00", "tokens_seen": 4096, "val_loss": 10.878623962402344, "validation_tokens": 16384}
+{"bytes": 689812555, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 2, "time": "2026-07-05T14:44:58.841538+00:00", "tokens_seen": 4096}
+{"estimated_flops": 1160433893376, "event": "validation", "step": 3, "time": "2026-07-05T14:44:59.444832+00:00", "tokens_seen": 6144, "val_loss": 10.83224868774414, "validation_tokens": 16384}
+{"bytes": 689812555, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 3, "time": "2026-07-05T14:45:00.506967+00:00", "tokens_seen": 6144}
+{"checkpoint": "checkpoints/latest.pt", "event": "completed", "reason": "completed", "step": 3, "time": "2026-07-05T14:45:01.816536+00:00", "tokens_seen": 6144}

@@ -1,0 +1,22 @@
+
+===== step 1 =====
+PROMPT: Once upon a time
+Once upon a time
+
+PROMPT: The little girl
+The little girl
+
+PROMPT: In a small village
+In a small village
+
+
+===== step 30 =====
+PROMPT: Once upon a time
+Once upon a time
+
+PROMPT: The little girl
+The little girl
+
+PROMPT: In a small village
+In a small village
+

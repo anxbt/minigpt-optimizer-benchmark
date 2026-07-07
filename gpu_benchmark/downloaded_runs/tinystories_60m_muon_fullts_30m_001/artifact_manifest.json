@@ -1,0 +1,54 @@
+{
+  "files": [
+    {
+      "bytes": 1018,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 563951179,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1627,
+      "path": "config.json"
+    },
+    {
+      "bytes": 20829,
+      "path": "logs/stdout.log"
+    },
+    {
+      "bytes": 279003,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 11149,
+      "path": "muon_param_groups.json"
+    },
+    {
+      "bytes": 45767,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 41210,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 54101,
+      "path": "plots/muon_update_rms.png"
+    },
+    {
+      "bytes": 46648,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 316,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 24072,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/home/anubrat/pretrain_runs/tinystories_60m_muon_fullts_30m_001",
+  "updated_at": "2026-07-05T16:57:28.900948+00:00"
+}

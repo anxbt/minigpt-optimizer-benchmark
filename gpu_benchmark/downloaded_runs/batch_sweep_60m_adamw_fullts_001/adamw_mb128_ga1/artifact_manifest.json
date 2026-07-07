@@ -1,0 +1,18 @@
+{
+  "files": [
+    {
+      "bytes": 292,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 1612,
+      "path": "config.json"
+    },
+    {
+      "bytes": 265,
+      "path": "run_summary.json"
+    }
+  ],
+  "run_dir": "/home/anubrat/pretrain_runs/batch_sweep_60m_adamw_fullts_001/adamw_mb128_ga1",
+  "updated_at": "2026-07-05T15:51:37.315312+00:00"
+}

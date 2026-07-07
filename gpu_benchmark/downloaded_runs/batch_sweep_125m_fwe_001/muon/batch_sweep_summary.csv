@@ -1,0 +1,6 @@
+micro_batch_size,grad_accum_steps,effective_batch_tokens,returncode,status,last_step,tokens_seen,best_val_loss,last_val_loss,last_train_loss,median_tokens_per_second,max_gpu_allocated_gb,validation_count,run_dir
+2,64,65536,0,completed,20,1310720,10.730199813842773,10.730199813842773,10.752820491790771,49120.94970561159,2.811450481414795,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/muon/muon_mb2_ga64
+4,32,65536,0,completed,20,1310720,10.730325698852539,10.730325698852539,10.752926349639893,67332.89052149093,3.705730438232422,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/muon/muon_mb4_ga32
+8,16,65536,0,completed,20,1310720,10.730339050292969,10.730339050292969,10.75285005569458,83957.22124160749,5.550076484680176,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/muon/muon_mb8_ga16
+16,8,65536,0,completed,20,1310720,10.730348587036133,10.730348587036133,10.752898693084717,88335.18874977504,9.28917932510376,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/muon/muon_mb16_ga8
+32,4,65536,0,completed,20,1310720,10.730371475219727,10.730371475219727,10.752835273742676,86630.23983913277,16.7239351272583,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/muon/muon_mb32_ga4

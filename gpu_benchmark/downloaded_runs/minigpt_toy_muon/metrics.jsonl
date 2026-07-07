@@ -1,0 +1,11 @@
+{"estimated_flops": 605945856, "event": "train_step", "gpu_max_memory_allocated_bytes": 165570048, "gpu_memory_allocated_bytes": 137704960, "gpu_memory_reserved_bytes": 209715200, "learning_rate": 1.2e-06, "step": 1, "time": "2026-07-05T14:13:31.673228+00:00", "tokens_per_second": 512.4569504248116, "tokens_seen": 256, "train_loss": 10.87158203125, "wall_clock_seconds": 0.4995546340942383}
+{"avg_update_rms": 0.15044625227650008, "event": "muon_update_rms", "max_update_rms": 0.17439253628253937, "min_update_rms": 0.11432939767837524, "num_muon_matrices": 12, "step": 1, "time": "2026-07-05T14:13:31.673772+00:00", "tokens_seen": 256}
+{"estimated_flops": 605945856, "event": "validation", "step": 1, "time": "2026-07-05T14:13:31.698938+00:00", "tokens_seen": 256, "val_loss": 10.872085571289062, "validation_tokens": 4096}
+{"bytes": 80492453, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 1, "time": "2026-07-05T14:13:31.935973+00:00", "tokens_seen": 256}
+{"estimated_flops": 1211891712, "event": "validation", "step": 2, "time": "2026-07-05T14:13:32.545327+00:00", "tokens_seen": 512, "val_loss": 10.8680419921875, "validation_tokens": 4096}
+{"bytes": 80492453, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 2, "time": "2026-07-05T14:13:32.667436+00:00", "tokens_seen": 512}
+{"checkpoint": "checkpoints/latest.pt", "event": "completed", "reason": "completed", "step": 2, "time": "2026-07-05T14:13:33.400276+00:00", "tokens_seen": 512}
+{"checkpoint": "/tmp/minigpt_toy_muon/checkpoints/latest.pt", "event": "resume", "step": 2, "time": "2026-07-05T14:14:24.514038+00:00", "tokens_seen": 512}
+{"estimated_flops": 1817837568, "event": "validation", "step": 3, "time": "2026-07-05T14:14:25.017699+00:00", "tokens_seen": 768, "val_loss": 10.8642578125, "validation_tokens": 4096}
+{"bytes": 80492645, "event": "checkpoint", "path": "checkpoints/latest.pt", "step": 3, "time": "2026-07-05T14:14:25.253411+00:00", "tokens_seen": 768}
+{"checkpoint": "checkpoints/latest.pt", "event": "completed", "reason": "completed", "step": 3, "time": "2026-07-05T14:14:25.984466+00:00", "tokens_seen": 768}

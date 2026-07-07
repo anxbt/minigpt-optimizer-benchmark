@@ -1,0 +1,63 @@
+{
+  "created_at": "2026-07-05T15:54:02.822365+00:00",
+  "dataset": {
+    "block_size": 512,
+    "cache_dir": "/home/anubrat/pretrain_data/tinystories_gpt2_512_full",
+    "created_at": "2026-07-05T15:48:53.606725+00:00",
+    "dataset": "roneneldan/TinyStories",
+    "dtype": "uint16",
+    "num_train_shards": 1,
+    "num_validation_shards": 1,
+    "tokenizer": "openai-community/gpt2",
+    "train_tokens": 473992236,
+    "validation_tokens": 4765918,
+    "vocab_size": 50257
+  },
+  "hardware": {
+    "cpu_count": 8,
+    "device": "cuda",
+    "gpu_memory_bytes": 47667740672,
+    "gpu_name": "NVIDIA L40S"
+  },
+  "hostname": "ip-172-31-44-168.ap-south-1.compute.internal",
+  "model": {
+    "bias": false,
+    "block_size": 512,
+    "dropout": 0.0,
+    "embedding_parameter_count": 25993728,
+    "n_embd": 512,
+    "n_head": 8,
+    "n_layer": 10,
+    "name": "MiniGPT-Dense-60M-v1",
+    "non_embedding_parameter_count": 31478784,
+    "parameter_count": 57472512,
+    "tie_lm_head": true,
+    "vocab_size": 50257
+  },
+  "optimizer": {
+    "beta1": 0.9,
+    "beta2": 0.95,
+    "epsilon": 1e-08,
+    "learning_rate": 0.0006,
+    "muon_momentum": 0.95,
+    "muon_rms_scale_enabled": true,
+    "name": "muon",
+    "newton_schulz_steps": 5,
+    "weight_decay": 0.1
+  },
+  "run_id": "muon_mb64_ga2",
+  "tokenizer": {
+    "name": "openai-community/gpt2",
+    "vocab_size": 50257
+  },
+  "training": {
+    "effective_batch_tokens": 65536,
+    "grad_accum_steps": 2,
+    "max_minutes": 0.0,
+    "max_steps": 30,
+    "micro_batch_size": 64,
+    "min_lr_ratio": 0.1,
+    "precision": "bf16",
+    "warmup_steps": 500
+  }
+}

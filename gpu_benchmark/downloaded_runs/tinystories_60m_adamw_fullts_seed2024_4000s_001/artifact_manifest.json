@@ -1,0 +1,46 @@
+{
+  "files": [
+    {
+      "bytes": 878,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 689812747,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1663,
+      "path": "config.json"
+    },
+    {
+      "bytes": 20690,
+      "path": "logs/stdout.log"
+    },
+    {
+      "bytes": 177518,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 46275,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 41756,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 46123,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 306,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 24031,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/home/anubrat/pretrain_runs/tinystories_60m_adamw_fullts_seed2024_4000s_001",
+  "updated_at": "2026-07-05T19:02:31.839002+00:00"
+}

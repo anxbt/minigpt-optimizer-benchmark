@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 919,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 563951115,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1594,
+      "path": "config.json"
+    },
+    {
+      "bytes": 1849,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 11149,
+      "path": "muon_param_groups.json"
+    },
+    {
+      "bytes": 70886,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 63095,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 37654,
+      "path": "plots/muon_update_rms.png"
+    },
+    {
+      "bytes": 28246,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 297,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 1614,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/tmp/tinystories_60m_muon_smoke_cli",
+  "updated_at": "2026-07-05T14:45:23.784184+00:00"
+}

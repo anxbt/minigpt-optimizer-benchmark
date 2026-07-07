@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<!-- ==================================================================
+     LONG DOCUMENT · English · parchment design system
+     Multi-page A4 white paper / tech report / annual review
+     Flow: cover -> toc -> exec summary -> chapters -> appendix
+     ================================================================== -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>AdamW vs Hybrid Muon for MiniGPT Pretraining</title>
+<meta name="author" content="Lean ML Visual Labs">
+<meta name="description" content="A controlled single-GPU benchmark comparing AdamW and Hybrid Muon on MiniGPT pretraining across TinyStories and FineWeb-Edu caches.">
+<meta name="keywords" content="AdamW, Muon, MiniGPT, FineWeb-Edu, TinyStories">
+<meta name="generator" content="Kami">
+<style>
+  /* Palatino is a system font, no @font-face needed */
+  @font-face { font-family: "JetBrains Mono"; src: url("../fonts/JetBrainsMono.woff2") format("woff2"); font-weight: 400; font-style: normal; }
+  @font-face { font-family: "JetBrains Mono"; src: url("../fonts/JetBrainsMono.woff2") format("woff2"); font-weight: 500; font-style: normal; }
+
+  @page {
+    size: A4;
+    margin: 20mm 22mm 22mm 22mm;
+    background: #f5f4ed;
+
+    @top-right {
+      content: string(section-title);
+      font-family: Charter, Georgia, Palatino, serif;
+      font-size: 8pt;
+      color: #6b6a64;
+    }
+
+    @bottom-center {
+      content: counter(page) "  ·  AdamW vs Hybrid Muon for MiniGPT Pretraining";
+      font-family: Charter, Georgia, Palatino, serif;
+      font-size: 9pt;
+      color: #6b6a64;
+    }
+  }
+  @page:first {
+    @top-right { content: ""; }
+    @bottom-center { content: ""; }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --parchment: #f5f4ed;
+    --ivory:     #faf9f5;
+    --near-black:#141413;
+    --dark-warm: #3d3d3a;
+    --olive:     #504e49;
+    --stone:     #6b6a64;
+    --brand:     #1B365D;
+    --border:    #e8e6dc;
+    --border-soft:#e5e3d8;
+    --tag-bg:    #E4ECF5;
+
+    --serif: Charter, Georgia,
+             Palatino, "Times New Roman", serif;
+    --sans: var(--serif);
+    --mono:  "JetBrains Mono", "SF Mono", "Fira Code",
+             Consolas, Monaco, monospace;
+
+    --rhythm-module:  14pt;
+    --rhythm-section: 18pt;
+  }
+
+  html, body { background: var(--parchment); }
+
+  @media screen {
+    body { max-width: 210mm; margin: 0 auto; padding: 20mm 22mm 22mm 22mm; }
+  }
+
+  body {
+    color: var(--near-black);
+    font-family: var(--serif);
+    font-size: 10.5pt;
+    line-height: 1.55;
+    widows: 3;
+    orphans: 3;
+  }
+
+  .sans { font-family: var(--sans); }
+
+  /* COVER */
+  .cover {
+    min-height: 240mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40mm 0 0 0;
+    break-after: page;
+  }
+  .cover-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8pt;
+    font-family: var(--sans);
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 2pt;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 18pt;
+  }
+  .cover-eyebrow::before {
+    content: "";
+    width: 9pt;
+    height: 1.5pt;
+    border-radius: 0.75pt;
+    background: var(--brand);
+    flex-shrink: 0;
+  }
+  .cover-title {
+    font-size: 40pt;
+    font-weight: 500;
+    color: var(--near-black);
+    line-height: 1.12;
+    letter-spacing: -0.5pt;
+    margin-bottom: 16pt;
+  }
+  .cover-sub {
+    font-family: var(--sans);
+    font-size: 14pt;
+    color: var(--olive);
+    line-height: 1.45;
+    max-width: 85%;
+    margin-bottom: 30pt;
+  }
+  .cover-meta {
+    font-family: var(--sans);
+    font-size: 10pt;
+    color: var(--stone);
+    line-height: 1.55;
+    font-variant-numeric: tabular-nums;
+  }
+  .cover-meta strong { color: var(--dark-warm); font-weight: 500; }
+
+  /* TOC */
+  .toc { break-after: page; }
+  .toc h2 {
+    font-size: 22pt;
+    font-weight: 500;
+    margin-bottom: var(--rhythm-module);
+    border-left: 2.5pt solid var(--brand);
+    border-radius: 1.5pt;
+    padding-left: 8pt;
+  }
+  .toc-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 6pt 0;
+    border-bottom: 0.3pt dotted var(--border);
+    font-size: 11pt;
+  }
+  .toc-item:last-of-type { border-bottom: none; }
+  .toc-num {
+    color: var(--brand);
+    font-weight: 500;
+    min-width: 30pt;
+    font-variant-numeric: tabular-nums;
+  }
+  .toc-title {
+    flex: 1;
+    color: var(--near-black);
+    padding-left: 6pt;
+  }
+  .toc-page {
+    color: var(--stone);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* HEADINGS */
+  h1 {
+    font-size: 24pt;
+    font-weight: 500;
+    line-height: 1.15;
+    letter-spacing: -0.3pt;
+    margin: 0 0 10pt 0;
+    border-left: 2.5pt solid var(--brand);
+    border-radius: 1.5pt;
+    padding-left: 8pt;
+    color: var(--near-black);
+    break-after: avoid;
+  }
+  h2 {
+    font-size: 16pt;
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 24pt 0 8pt 0;
+    color: var(--near-black);
+    break-after: avoid;
+    string-set: section-title content();
+  }
+  h3 {
+    font-size: 13pt;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 18pt 0 6pt 0;
+    color: var(--dark-warm);
+    break-after: avoid;
+  }
+
+  .chapter-num {
+    font-family: var(--sans);
+    font-size: 10pt;
+    color: var(--brand);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 6pt;
+  }
+
+  /* PARAGRAPHS */
+  p { margin: 0 0 10pt 0; line-height: 1.55; color: var(--near-black); widows: 2; orphans: 2; }
+
+  .lead {
+    font-size: 12pt;
+    line-height: 1.55;
+    color: var(--dark-warm);
+    margin-bottom: var(--rhythm-module);
+  }
+
+  .hl { color: var(--brand); font-weight: 500; }
+  strong { font-weight: 500; }
+
+  /* LISTS */
+  ul, ol {
+    margin: 6pt 0 10pt 0;
+    padding-left: 20pt;
+    line-height: 1.55;
+  }
+  ul li::marker { color: var(--brand); }
+  ol li::marker { color: var(--brand); font-weight: 500; }
+
+  /* QUOTE */
+  blockquote, .quote {
+    border-left: 2pt solid var(--brand);
+    margin: 12pt 0;
+    padding: 4pt 0 4pt 16pt;
+    color: var(--olive);
+    line-height: 1.55;
+    break-inside: avoid;
+  }
+  blockquote .cite, .quote .cite {
+    display: block;
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--stone);
+    margin-top: 4pt;
+  }
+
+  /* CODE */
+  code {
+    font-family: var(--mono);
+    font-size: 9pt;
+    background: var(--ivory);
+    padding: 1pt 4pt;
+    border-radius: 2pt;
+    color: var(--dark-warm);
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 9pt;
+    line-height: 1.5;
+    background: var(--ivory);
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    margin: 10pt 0;
+    white-space: pre-wrap;
+    color: var(--near-black);
+    break-inside: avoid;
+  }
+  pre code { background: transparent; padding: 0; font-size: inherit; }
+
+  /* TABLE (kami-table) */
+  table, .kami-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9.5pt;
+    margin: 12pt 0;
+    break-inside: avoid;
+  }
+  table th, .kami-table th {
+    text-align: left;
+    font-family: var(--sans);
+    font-weight: 500;
+    color: var(--dark-warm);
+    padding: 6pt 8pt;
+    border-bottom: 1pt solid var(--border);
+    background: var(--ivory);
+  }
+  table td, .kami-table td {
+    padding: 5pt 8pt;
+    border-bottom: 0.3pt solid var(--border-soft);
+    vertical-align: top;
+  }
+  table.compact th, .kami-table.compact th { padding: 3pt 6pt; font-size: 8pt; }
+  table.compact td, .kami-table.compact td { padding: 2pt 6pt; font-size: 8pt; line-height: 1.4; }
+  table.financial td:not(:first-child), .kami-table.financial td:not(:first-child) {
+    text-align: right; font-variant-numeric: tabular-nums;
+  }
+  table.financial th:not(:first-child), .kami-table.financial th:not(:first-child) { text-align: right; }
+  table.striped tbody tr:nth-child(even) td, .kami-table.striped tbody tr:nth-child(even) td {
+    background: var(--ivory);
+  }
+  table .total td, .kami-table .total td {
+    font-weight: 500; border-top: 1pt solid var(--brand); border-bottom: none; color: var(--near-black);
+  }
+
+  /* CALLOUT / TAKEAWAY */
+  .callout {
+    background: var(--ivory);
+    border-left: 2pt solid var(--brand);
+    padding: 10pt 14pt;
+    border-radius: 3pt;
+    margin: 12pt 0;
+    line-height: 1.55;
+    break-inside: avoid;
+  }
+  .callout blockquote,
+  .callout .quote {
+    border-left: none;
+    padding-left: 0;
+    margin: 6pt 0;
+    color: var(--olive);
+  }
+  .callout blockquote:first-child,
+  .callout .quote:first-child { margin-top: 0; }
+  .callout blockquote:last-child,
+  .callout .quote:last-child  { margin-bottom: 0; }
+  .takeaway {
+    background: var(--ivory);
+    border-radius: 4pt;
+    padding: 10pt 14pt;
+    margin: 14pt 0;
+    break-inside: avoid;
+  }
+  .takeaway-label {
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--brand);
+    letter-spacing: 1pt;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4pt;
+  }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    background: var(--tag-bg);
+    color: var(--brand);
+    font-family: var(--sans);
+    font-size: 9pt;
+    font-weight: 500;
+    padding: 1pt 6pt;
+    border-radius: 3pt;
+    letter-spacing: 0.4pt;
+    text-transform: uppercase;
+    margin-right: 4pt;
+  }
+
+  /* FIGURE */
+  figure { margin: 14pt 0; break-inside: avoid; }
+  figure img { max-width: 100%; border-radius: 4pt; }
+  figcaption {
+    font-family: var(--sans);
+    font-size: 9pt;
+    color: var(--stone);
+    margin-top: 6pt;
+    text-align: center;
+  }
+
+  /* CHAPTER BREAK */
+  .chapter { break-before: page; }
+</style>
+</head>
+<body>
+
+
+<!-- COVER -->
+<section class="cover">
+  <div>
+    <div class="cover-eyebrow">Technical Report</div>
+    <div class="cover-title">AdamW vs Hybrid Muon<br>for MiniGPT Pretraining</div>
+    <div class="cover-sub">A controlled single-GPU benchmark across TinyStories and FineWeb-Edu token caches.</div>
+  </div>
+  <div class="cover-meta">
+    <strong>Lean ML Visual Labs</strong><br>
+    Version 1.0 · 2026.07<br>
+    Local L40S benchmark report
+  </div>
+</section>
+
+<!-- TOC -->
+<section class="toc">
+  <h2>Contents</h2>
+  <div class="toc-item"><span class="toc-num">01</span><span class="toc-title">Executive Summary</span><span class="toc-page">03</span></div>
+  <div class="toc-item"><span class="toc-num">02</span><span class="toc-title">Question and Optimizer Setup</span><span class="toc-page">04</span></div>
+  <div class="toc-item"><span class="toc-num">03</span><span class="toc-title">Model, Data, and Controls</span><span class="toc-page">06</span></div>
+  <div class="toc-item"><span class="toc-num">04</span><span class="toc-title">Results</span><span class="toc-page">09</span></div>
+  <div class="toc-item"><span class="toc-num">05</span><span class="toc-title">Interpretation and Limits</span><span class="toc-page">13</span></div>
+  <div class="toc-item"><span class="toc-num">06</span><span class="toc-title">Appendix</span><span class="toc-page">15</span></div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">01 · Executive Summary</div>
+  <h1>Executive Summary</h1>
+  <p class="lead">We compared <span class="hl">AdamW</span> against <span class="hl">Hybrid Muon</span> for decoder-only MiniGPT pretraining. Across a narrow short-story corpus and a broader educational web-text cache, Hybrid Muon reached lower validation loss at matched model, seed, batch, and token-budget settings.</p>
+
+  <h2>Key Takeaways</h2>
+  <ul>
+    <li>On the 57M MiniGPT model, Hybrid Muon improved mean best validation loss by <span class="hl">3.69%</span> on TinyStories and <span class="hl">2.77%</span> on the 500M-token FineWeb-Edu cache over 3 seed-matched 4000-step runs.</li>
+    <li>On the 125M MiniGPT model, Hybrid Muon improved mean best validation loss by <span class="hl">2.65%</span> across 3 FineWeb-Edu seeds.</li>
+    <li>AdamW was faster in raw throughput. The result supports a narrower claim: Hybrid Muon delivered better validation loss per training token in this controlled setup.</li>
+  </ul>
+
+  <div class="takeaway">
+    <div class="takeaway-label">Main claim</div>
+    In our single-GPU MiniGPT experiments, Hybrid Muon consistently reached lower validation loss than AdamW under fixed architecture, data cache, seed, batch size, and token budget. This is not a claim that Muon universally dominates AdamW.
+  </div>
+
+  <figure><img src="images/fig_scaling_summary_57m_to_125m.png" alt="Summary of mean relative validation-loss improvement across the completed 57M and 125M experiments."><figcaption>Summary of mean relative validation-loss improvement across the completed 57M and 125M experiments.</figcaption></figure>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">02 · Question</div>
+  <h1>Question and Optimizer Setup</h1>
+  <p class="lead">The benchmark isolates one question: if the model, data, seed, batch size, and token budget are held fixed, does changing the optimizer from AdamW to Hybrid Muon change validation loss?</p>
+
+  <h2>What “Hybrid Muon” means</h2>
+  <p>Hybrid Muon is not Muon applied to every parameter. It is a split optimizer: Muon handles selected hidden two-dimensional matrix weights, while AdamW handles embeddings, normalization parameters, vectors, scalars, and fallback parameters.</p>
+
+  <table class="kami-table striped">
+    <thead><tr><th>Parameter group</th><th>Optimizer</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>Attention Q, K, V, O projection matrices</td><td>Muon</td><td>Large hidden 2D matrices where matrix-aware updates are meaningful.</td></tr>
+      <tr><td>MLP up and down projection matrices</td><td>Muon</td><td>Large 2D matrices mapping 768 → 3072 → 768.</td></tr>
+      <tr><td>Token embeddings and position embeddings</td><td>AdamW</td><td>Embedding tables are treated as fallback parameters in this implementation.</td></tr>
+      <tr><td>LayerNorm weights, biases, vectors, scalars</td><td>AdamW</td><td>Non-matrix or small parameters do not use Muon in this hybrid recipe.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">This split is why the report uses the term <strong>Hybrid Muon</strong>. The comparison is AdamW for all eligible parameters versus a mixed Muon-plus-AdamW optimizer.</div>
+
+  <figure><img src="images/fig_3d_muon_optimizer_split.png" alt="Hybrid Muon optimizer split used in the experiments: Muon for hidden matrices, AdamW for fallback parameters."><figcaption>Hybrid Muon optimizer split used in the experiments: Muon for hidden matrices, AdamW for fallback parameters.</figcaption></figure>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">03 · Model and Data</div>
+  <h1>Model, Data, and Controls</h1>
+  <p class="lead">The experiment uses decoder-only GPT-style models implemented in PyTorch. The main scale result uses MiniGPT-Dense-125M-v1, a GPT-2-small-style configuration with context length 512.</p>
+
+  <h2>MiniGPT-Dense-125M-v1 architecture</h2>
+  <table class="kami-table financial striped">
+    <thead><tr><th>Dimension</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Parameters</td><td>123,963,648</td></tr>
+      <tr><td>Layers</td><td>12</td></tr>
+      <tr><td>Hidden size</td><td>768</td></tr>
+      <tr><td>Attention heads</td><td>12</td></tr>
+      <tr><td>Head dimension</td><td>64</td></tr>
+      <tr><td>MLP width</td><td>3072</td></tr>
+      <tr><td>Context length</td><td>512</td></tr>
+      <tr><td>Tokenizer vocabulary</td><td>50,257</td></tr>
+    </tbody>
+  </table>
+
+  <figure><img src="images/fig_3d_minigpt_architecture.png" alt="Code-generated 2.5D schematic of MiniGPT-Dense-125M-v1."><figcaption>Code-generated 2.5D schematic of MiniGPT-Dense-125M-v1.</figcaption></figure>
+  <figure><img src="images/fig_3d_transformer_block_exploded.png" alt="Exploded view of one Transformer block: attention path, MLP path, and residual additions."><figcaption>Exploded view of one Transformer block: attention path, MLP path, and residual additions.</figcaption></figure>
+
+  <h2>Dataset caches</h2>
+  <p>The report should state cache size and consumed-token budget separately. Cache size describes how much tokenized data was available. Tokens seen describes how much each training run actually consumed.</p>
+
+  <table class="kami-table striped">
+    <thead><tr><th>Dataset cache</th><th>Training tokens in cache</th><th>Validation tokens in cache</th><th>Role in report</th></tr></thead>
+    <tbody>
+      <tr><td>TinyStories</td><td>473,992,236</td><td>4,765,918</td><td>Narrow short-story corpus, used in 57M runs.</td></tr>
+      <tr><td>FineWeb-Edu sample-10BT extract</td><td>500,000,000</td><td>5,000,000</td><td>Broader educational web-text cache, used in 57M and 125M runs.</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Training controls</h2>
+  <table class="kami-table financial striped">
+    <thead><tr><th>Control</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Effective batch tokens</td><td>65,536</td></tr>
+      <tr><td>4000-step tokens per run</td><td>262,144,000</td></tr>
+      <tr><td>Validation tokens per evaluation</td><td>262,144</td></tr>
+      <tr><td>125M benchmark seeds</td><td>1337, 2024, 2025</td></tr>
+      <tr><td>Precision</td><td>bf16</td></tr>
+      <tr><td>Hardware</td><td>Single NVIDIA L40S</td></tr>
+    </tbody>
+  </table>
+
+  <div class="takeaway"><div class="takeaway-label">TinyStories usage</div>Each 4000-step TinyStories run consumed 262.14M tokens, about 55.3% of the 473.99M-token training cache, assuming no full wraparound.</div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">04 · Results</div>
+  <h1>Results</h1>
+  <p class="lead">The strongest result is the 125M, 3-seed FineWeb-Edu benchmark. Hybrid Muon reached lower validation loss in every seed-matched pair.</p>
+
+  <figure><img src="images/fig_125m_best_val_loss_by_seed.png" alt="125M FineWeb-Edu best validation loss by seed. Lower is better."><figcaption>125M FineWeb-Edu best validation loss by seed. Lower is better.</figcaption></figure>
+  <figure><img src="images/fig_125m_validation_curves_by_seed.png" alt="Validation-loss curves for 125M FineWeb-Edu runs across three seeds."><figcaption>Validation-loss curves for 125M FineWeb-Edu runs across three seeds.</figcaption></figure>
+
+  <h2>125M FineWeb-Edu aggregate</h2>
+  <table class="kami-table financial striped">
+    <thead><tr><th>Metric</th><th>AdamW</th><th>Hybrid Muon</th><th>Delta</th></tr></thead>
+    <tbody>
+      <tr><td>Mean best validation loss</td><td>3.8056 ± 0.0146</td><td>3.7049 ± 0.0181</td><td>0.1007 ± 0.0038</td></tr>
+      <tr><td>Mean relative improvement</td><td>—</td><td>2.65%</td><td>Muon lower</td></tr>
+      <tr><td>Median throughput</td><td>≈102.9k tokens/s</td><td>≈87.9k tokens/s</td><td>AdamW faster</td></tr>
+      <tr><td>Max allocated GPU memory</td><td>9.63 GB</td><td>9.29 GB</td><td>Similar</td></tr>
+    </tbody>
+  </table>
+
+  <figure><img src="images/fig_125m_quality_speed_tradeoff.png" alt="125M tradeoff: Hybrid Muon improves mean validation loss; AdamW is faster in raw throughput."><figcaption>125M tradeoff: Hybrid Muon improves mean validation loss; AdamW is faster in raw throughput.</figcaption></figure>
+  <figure><img src="images/fig_125m_muon_delta_by_seed.png" alt="Per-seed validation-loss advantage for Hybrid Muon on 125M FineWeb-Edu."><figcaption>Per-seed validation-loss advantage for Hybrid Muon on 125M FineWeb-Edu.</figcaption></figure>
+
+  <h2>57M cross-dataset result</h2>
+  <table class="kami-table financial striped">
+    <thead><tr><th>Dataset</th><th>Steps</th><th>Seeds</th><th>AdamW mean±std</th><th>Hybrid Muon mean±std</th><th>Relative improvement</th></tr></thead>
+    <tbody>
+      <tr><td>TinyStories</td><td>4000</td><td>3</td><td>1.4658 ± 0.0028</td><td>1.4116 ± 0.0016</td><td>3.69%</td></tr>
+      <tr><td>FineWeb-Edu-500M</td><td>4000</td><td>3</td><td>3.9747 ± 0.0150</td><td>3.8645 ± 0.0144</td><td>2.77%</td></tr>
+      <tr><td>FineWeb-Edu-500M</td><td>8000</td><td>1</td><td>3.7377</td><td>3.6614</td><td>2.04%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">Safe wording: across a narrow short-story corpus and a broader educational web-text cache, Hybrid Muon consistently achieved lower validation loss than AdamW at fixed architecture, seed, batch size, and token budget.</div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">05 · Interpretation</div>
+  <h1>Interpretation and Limits</h1>
+  <p class="lead">The evidence is strong enough for a technical report, but not broad enough for a universal optimizer claim.</p>
+
+  <h2>What the result supports</h2>
+  <ol>
+    <li>Hybrid Muon improved validation loss per token in our MiniGPT implementation.</li>
+    <li>The advantage appeared on both TinyStories and FineWeb-Edu at 57M scale.</li>
+    <li>The advantage persisted at 125M scale on FineWeb-Edu across three seeds.</li>
+  </ol>
+
+  <h2>What the result does not prove</h2>
+  <ul>
+    <li>It does not prove that Muon is universally better than AdamW.</li>
+    <li>It does not reproduce frontier-scale pretraining.</li>
+    <li>It does not test every tokenizer, architecture family, context length, or dataset mixture.</li>
+    <li>It does not claim wall-clock superiority, because AdamW had higher throughput in our runs.</li>
+  </ul>
+
+  <h2>Recommended next steps</h2>
+  <p>The next step is not automatically a bigger model. The current evidence is already sufficient for a credible engineering report. If more GPU time is available, the best follow-up is a longer 125M FineWeb-Edu run or a 125M TinyStories run, not an immediate jump to a much larger model.</p>
+
+  <div class="takeaway"><div class="takeaway-label">Decision</div>Summarize and publish the report now. Treat larger models as future work, not a prerequisite for the current claim.</div>
+</section>
+
+<section class="chapter">
+  <div class="chapter-num">06 · Appendix</div>
+  <h1>Appendix</h1>
+
+  <h2>A. Artifact index</h2>
+  <ul>
+    <li><code>reports/57m_adamw_vs_muon_results.md</code></li>
+    <li><code>reports/125m_adamw_vs_muon_3seed_results.md</code></li>
+    <li><code>gpu_benchmark/downloaded_runs/compare_125m_finewebedu_3seed_4000s/</code></li>
+    <li><code>figures/gen_fig_muon_benchmark.py</code></li>
+    <li><code>figures/gen_3d_paper_schematics.py</code></li>
+  </ul>
+
+  <h2>B. Glossary</h2>
+  <p><strong>Validation loss</strong> - loss measured on held-out tokens not used for gradient updates. Lower is better.</p>
+  <p><strong>Seed</strong> - a fixed random initialization/control value that makes optimizer comparisons more reproducible.</p>
+  <p><strong>Token budget</strong> - the number of training tokens processed by a run. In the 4000-step runs, this is 262.14M tokens.</p>
+  <p><strong>Hybrid Muon</strong> - Muon applied to hidden 2D matrix weights, with AdamW used for fallback parameters.</p>
+
+  <h2>C. Reproduction commands</h2>
+  <pre><code>python3 figures/gen_fig_muon_benchmark.py
+python3 figures/gen_3d_paper_schematics.py
+python3 gpu_benchmark/compare_optimizer_runs.py --help</code></pre>
+</section>
+
+</body>
+</html>

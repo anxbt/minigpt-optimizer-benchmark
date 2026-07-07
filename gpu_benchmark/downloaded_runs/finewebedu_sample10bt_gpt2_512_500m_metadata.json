@@ -1,0 +1,16 @@
+{
+  "block_size": 512,
+  "cache_dir": "/home/anubrat/pretrain_data/finewebedu_sample10bt_gpt2_512_500m",
+  "config": "sample-10BT",
+  "created_at": "2026-07-05T20:43:50.488377+00:00",
+  "dataset": "HuggingFaceFW/fineweb-edu",
+  "dtype": "uint16",
+  "max_train_tokens": 500000000,
+  "max_val_tokens": 5000000,
+  "num_train_shards": 1,
+  "num_validation_shards": 1,
+  "tokenizer": "openai-community/gpt2",
+  "train_tokens": 500000000,
+  "validation_tokens": 5000000,
+  "vocab_size": 50257
+}

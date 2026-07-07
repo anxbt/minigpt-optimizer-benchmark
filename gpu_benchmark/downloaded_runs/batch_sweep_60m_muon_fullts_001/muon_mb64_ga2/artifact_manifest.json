@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 956,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 563951179,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1605,
+      "path": "config.json"
+    },
+    {
+      "bytes": 5590,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 11149,
+      "path": "muon_param_groups.json"
+    },
+    {
+      "bytes": 63725,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 59347,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 56710,
+      "path": "plots/muon_update_rms.png"
+    },
+    {
+      "bytes": 46626,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 302,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 303,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/home/anubrat/pretrain_runs/batch_sweep_60m_muon_fullts_001/muon_mb64_ga2",
+  "updated_at": "2026-07-05T15:54:21.004069+00:00"
+}

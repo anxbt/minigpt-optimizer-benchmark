@@ -1,0 +1,10 @@
+{
+  "best_val_loss": 1.4659617813304067,
+  "last_step": 4000,
+  "last_val_loss": 1.4883913649246097,
+  "latest_checkpoint": "checkpoints/latest.pt",
+  "started_at": "2026-07-05T19:32:34.916817+00:00",
+  "status": "completed",
+  "tokens_seen": 262144000,
+  "updated_at": "2026-07-05T19:59:40.818300+00:00"
+}

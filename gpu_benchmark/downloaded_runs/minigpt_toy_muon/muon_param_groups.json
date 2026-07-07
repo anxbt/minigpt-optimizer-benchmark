@@ -1,0 +1,155 @@
+{
+  "adamw_param_names": [
+    {
+      "name": "token_embedding.weight",
+      "numel": null
+    },
+    {
+      "name": "position_embedding.weight",
+      "numel": null
+    },
+    {
+      "name": "blocks.0.ln_1.weight",
+      "numel": null
+    },
+    {
+      "name": "blocks.0.ln_1.bias",
+      "numel": null
+    },
+    {
+      "name": "blocks.0.ln_2.weight",
+      "numel": null
+    },
+    {
+      "name": "blocks.0.ln_2.bias",
+      "numel": null
+    },
+    {
+      "name": "blocks.1.ln_1.weight",
+      "numel": null
+    },
+    {
+      "name": "blocks.1.ln_1.bias",
+      "numel": null
+    },
+    {
+      "name": "blocks.1.ln_2.weight",
+      "numel": null
+    },
+    {
+      "name": "blocks.1.ln_2.bias",
+      "numel": null
+    },
+    {
+      "name": "ln_f.weight",
+      "numel": null
+    },
+    {
+      "name": "ln_f.bias",
+      "numel": null
+    }
+  ],
+  "muon_params": [
+    {
+      "name": "blocks.0.attn.q_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.0.attn.k_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.0.attn.v_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.0.attn.o_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.0.mlp.up_proj.weight",
+      "numel": 65536,
+      "shape": [
+        512,
+        128
+      ]
+    },
+    {
+      "name": "blocks.0.mlp.down_proj.weight",
+      "numel": 65536,
+      "shape": [
+        128,
+        512
+      ]
+    },
+    {
+      "name": "blocks.1.attn.q_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.1.attn.k_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.1.attn.v_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.1.attn.o_proj.weight",
+      "numel": 16384,
+      "shape": [
+        128,
+        128
+      ]
+    },
+    {
+      "name": "blocks.1.mlp.up_proj.weight",
+      "numel": 65536,
+      "shape": [
+        512,
+        128
+      ]
+    },
+    {
+      "name": "blocks.1.mlp.down_proj.weight",
+      "numel": 65536,
+      "shape": [
+        128,
+        512
+      ]
+    }
+  ],
+  "totals": {
+    "adamw_param_count": 12,
+    "muon_matrix_count": 12,
+    "muon_numel": 393216
+  }
+}

@@ -1,0 +1,6 @@
+micro_batch_size,grad_accum_steps,effective_batch_tokens,returncode,status,last_step,tokens_seen,best_val_loss,last_val_loss,last_train_loss,median_tokens_per_second,max_gpu_allocated_gb,validation_count,run_dir
+2,64,65536,0,completed,20,1310720,9.562413215637207,9.562413215637207,9.599291324615479,52921.16279738684,3.130098819732666,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/adamw/adamw_mb2_ga64
+4,32,65536,0,completed,20,1310720,9.56258487701416,9.56258487701416,9.59930944442749,75632.69452385735,4.028329849243164,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/adamw/adamw_mb4_ga32
+8,16,65536,0,completed,20,1310720,9.56266975402832,9.56266975402832,9.599733352661133,97031.67473752216,5.872845649719238,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/adamw/adamw_mb8_ga16
+16,8,65536,0,completed,20,1310720,9.562588691711426,9.562588691711426,9.59929895401001,103450.05510277831,9.62765884399414,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/adamw/adamw_mb16_ga8
+32,4,65536,0,completed,20,1310720,9.562455177307129,9.562455177307129,9.599384307861328,101052.09492204945,17.0288667678833,2,/home/anubrat/pretrain_runs/batch_sweep_125m_fwe_001/adamw/adamw_mb32_ga4

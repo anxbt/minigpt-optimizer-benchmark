@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+.venv-visual/
+venv/
+env/
+
+# Local/runtime state
+.omx/
+.DS_Store
+
+# Large training artifacts
+pretrain_data/
+pretrain_runs/
+checkpoints/
+*.pt
+*.pth
+*.safetensors
+*.bin
+
+# Logs
+*.log
+*.jsonl
+
+# Keep benchmark metric files needed for reproducible report plots
+!gpu_benchmark/downloaded_runs/**/metrics.jsonl
+
+# Jupyter
+.ipynb_checkpoints/
+# Vendored external repos / generated local tool checkouts
+figures/vendor/PlotNeuralNet/
+

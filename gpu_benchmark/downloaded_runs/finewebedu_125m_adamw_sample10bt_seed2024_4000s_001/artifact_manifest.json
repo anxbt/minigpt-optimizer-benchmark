@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 946,
+      "path": "artifact_manifest.json"
+    },
+    {
+      "bytes": 1487730763,
+      "path": "checkpoints/latest.pt"
+    },
+    {
+      "bytes": 1778,
+      "path": "config.json"
+    },
+    {
+      "bytes": 0,
+      "path": "logs/stderr.log"
+    },
+    {
+      "bytes": 20679,
+      "path": "logs/stdout.log"
+    },
+    {
+      "bytes": 178387,
+      "path": "metrics.jsonl"
+    },
+    {
+      "bytes": 51991,
+      "path": "plots/loss_vs_flops.png"
+    },
+    {
+      "bytes": 44994,
+      "path": "plots/loss_vs_tokens.png"
+    },
+    {
+      "bytes": 52174,
+      "path": "plots/train_loss_vs_step.png"
+    },
+    {
+      "bytes": 306,
+      "path": "run_summary.json"
+    },
+    {
+      "bytes": 25103,
+      "path": "sample_generations.txt"
+    }
+  ],
+  "run_dir": "/home/anubrat/pretrain_runs/finewebedu_125m_adamw_sample10bt_seed2024_4000s_001",
+  "updated_at": "2026-07-06T10:46:06.108350+00:00"
+}
